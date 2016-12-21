@@ -1,0 +1,27 @@
+Point:
+
+1. Access token is a bearer token. Therefore:
+	a. Anyone can use it because when they send a request for the data, the only thing they need to send is an access token. They do not need to authenticate themselves as a valid client with every request for data. This means, if you share or lose your access token and another person or application has it, they can impersonate you to the extent of the scopes that the access token allows.
+	
+	Letus put this to test.
+	
+	
+OAuth 2.0 Access tokens are bearer tokens
+
+* Try using an expired access tokens
+
+* Use an active access token with correct scope and fields but with a different application
+
+* Use an active access token with a different client to ask for more than its scope allows
+
+
+BEST PRACTICES:
+As a server:
+
+1. Make sure they expire
+
+2. Make sure fields are within the scope the token was granted for
+
+3. Make sure the request is on HTTPS
+
+4. As a server, it is a moot point and a design decision -- do you want any client to be able to use this access token or do you want the request for data coming from a white-listed uri?

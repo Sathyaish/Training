@@ -1,0 +1,60 @@
+10 things you need to know as a .net developer
+2 HOURS PER
+
+2 DAYS
+data types
+numeric
+int, long, short, signed and unsigned, byte
+float, double
+decimal
+char
+string
+bool
+struct
+value vs. reference types, when you pass a value or reference type as an argument
+strings and immutability, string builder, when you pass a string as an argument
+BigInteger
+
+4 DAYS
+oops
+classes -- how to make them, object modeling, function overloading, operator overloading
+encapsulation
+inheritance
+composition
+polymorphism
+interfaces
+access modifiers
+class modifiers
+virtual and abstract functions, overriding, shadowing
+
+2 DAYS
+delegates, events, anonymous methods, lambdas
+
+2 DAYS
+iterators, yield return, state machine, examples, when we do linq, then operators
+
+1 DAY
+file and network i/o
+
+1 DAY
+garbage collection and resource management
+
+4 DAYS
+linq - static classes, extensions, operators, linq queries
+
+4 DAYS
+threading
+
+3 DAYS
+asynchronous
+
+1 DAY
+build stuff -- don't bother about studying or practicing or design patterns
+
+
+
+
+
+
+
+di, unit testing, mocks

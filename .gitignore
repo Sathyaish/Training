@@ -1,0 +1,21 @@
+# Visual Studio output files and user specific configuration files
+/build/
+*.suo
+*.user
+_ReSharper.*/
+*.sdf
+bin/
+obj/
+Debug/
+Release/
+*.opensdf
+*.tlog
+*.log
+TestResult.xml
+*.VisualState.xml
+Version.cs
+Version.h
+Version.cpp
+/Input/
+*.trec
+*.mp4

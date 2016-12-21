@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DOMModelNamespace.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PaymentGateway">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Uri" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AppId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppKey" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductPaymentGateway">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="PaymentGatewayId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProductPaymentGateway_PaymentGateway">
+          <End Role="PaymentGateway" Type="Self.PaymentGateway" Multiplicity="1" />
+          <End Role="ProductPaymentGateway" Type="Self.ProductPaymentGateway" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentGateway">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPaymentGateway">
+              <PropertyRef Name="PaymentGatewayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPaymentGateway_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductPaymentGateway" Type="Self.ProductPaymentGateway" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPaymentGateway">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DOMModelNamespaceStoreContainer">
+          <EntitySet Name="PaymentGateway" EntityType="Self.PaymentGateway" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPaymentGateway" EntityType="Self.ProductPaymentGateway" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductPaymentGateway_PaymentGateway" Association="Self.FK_ProductPaymentGateway_PaymentGateway">
+            <End Role="PaymentGateway" EntitySet="PaymentGateway" />
+            <End Role="ProductPaymentGateway" EntitySet="ProductPaymentGateway" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPaymentGateway_Product" Association="Self.FK_ProductPaymentGateway_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductPaymentGateway" EntitySet="ProductPaymentGateway" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DOMModelNamespace" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PaymentGateway">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductPaymentGateways" Relationship="Self.FK_ProductPaymentGateway_PaymentGateway" FromRole="PaymentGateway" ToRole="ProductPaymentGateway" />
+          <Property Name="Uri" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AppId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="ProductPaymentGateways" Relationship="Self.FK_ProductPaymentGateway_Product" FromRole="Product" ToRole="ProductPaymentGateway" />
+        </EntityType>
+        <EntityType Name="ProductPaymentGateway">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentGatewayId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PaymentGateway" Relationship="Self.FK_ProductPaymentGateway_PaymentGateway" FromRole="ProductPaymentGateway" ToRole="PaymentGateway" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductPaymentGateway_Product" FromRole="ProductPaymentGateway" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductPaymentGateway_PaymentGateway">
+          <End Role="PaymentGateway" Type="Self.PaymentGateway" Multiplicity="1" />
+          <End Role="ProductPaymentGateway" Type="Self.ProductPaymentGateway" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentGateway">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPaymentGateway">
+              <PropertyRef Name="PaymentGatewayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPaymentGateway_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductPaymentGateway" Type="Self.ProductPaymentGateway" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPaymentGateway">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DOMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PaymentGateways" EntityType="Self.PaymentGateway" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductPaymentGateways" EntityType="Self.ProductPaymentGateway" />
+          <AssociationSet Name="FK_ProductPaymentGateway_PaymentGateway" Association="Self.FK_ProductPaymentGateway_PaymentGateway">
+            <End Role="PaymentGateway" EntitySet="PaymentGateways" />
+            <End Role="ProductPaymentGateway" EntitySet="ProductPaymentGateways" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPaymentGateway_Product" Association="Self.FK_ProductPaymentGateway_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductPaymentGateway" EntitySet="ProductPaymentGateways" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DOMModelNamespaceStoreContainer" CdmEntityContainer="DOMEntities">
+          <EntitySetMapping Name="PaymentGateways">
+            <EntityTypeMapping TypeName="DOMModelNamespace.PaymentGateway">
+              <MappingFragment StoreEntitySet="PaymentGateway">
+                <ScalarProperty Name="AppKey" ColumnName="AppKey" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="Uri" ColumnName="Uri" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DOMModelNamespace.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPaymentGateways">
+            <EntityTypeMapping TypeName="DOMModelNamespace.ProductPaymentGateway">
+              <MappingFragment StoreEntitySet="ProductPaymentGateway">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="PaymentGatewayId" ColumnName="PaymentGatewayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

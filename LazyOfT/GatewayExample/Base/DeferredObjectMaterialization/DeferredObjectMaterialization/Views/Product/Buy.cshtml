@@ -1,0 +1,43 @@
+﻿@model DeferredObjectMaterialization.Models.Product
+
+@{
+    ViewBag.Title = "Buy";
+}
+
+<h2>Buy</h2>
+
+@using(Html.BeginForm("PlaceOrder", "Product", FormMethod.Post))
+{
+<fieldset>
+    <legend>Product</legend>
+
+    <div>
+        @Html.HiddenFor(model => model.Id)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Price)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Price)
+    </div>
+
+    <div class="display-label">
+        Credit Card Number
+    </div>
+    <div class="display-field">
+        @Html.TextBox("CreditCardNumber")
+    </div>
+</fieldset>
+<p>
+    <input type = "submit" value = "Place Order" /><br />   
+    @Html.ActionLink("Back to List", "Index")
+</p>
+}
