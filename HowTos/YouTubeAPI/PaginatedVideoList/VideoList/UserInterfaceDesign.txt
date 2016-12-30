@@ -1,0 +1,41 @@
+﻿Total videos in playlist: 139
+Public items in the playlist: Unknown
+Only public items will be shown.
+
+(1 - 50)
+------------------------------
+1) First video
+2) Second video
+...
+...
+50) Forty seventh video
+
+More...
+Press any key to see the remaining videos in this playlist.
+Press the 'Esc' key to exit the program.
+-------------------------------
+
+
+(51 - 100)
+------------------------------
+51) Fifty first video
+52) Fifty second video
+...
+...
+100) One hundredth video
+
+More...
+Press any key to see the remaining videos in this playlist.
+Press the 'Esc' key to exit the program.
+-------------------------------
+
+
+(101 - 139)
+------------------------------
+101) Hundred and first video
+102) Hundred and second video
+...
+...
+139) One hundred and thirty ninth video
+
+-- End of Results
