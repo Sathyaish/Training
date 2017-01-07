@@ -5,7 +5,7 @@ var app =
 		client_id : '760921016908-32jtmqtojn7aja9qvt4t7mh0089er9tb.apps.googleusercontent.com', 
 		redirect_uri : 'https://localhost:443/OAuth2/index.html',
 		response_type : 'token',
-		scope : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+		scope : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
 		state : 'abcd'
 	},
 	
@@ -16,7 +16,7 @@ var app =
 		resourceServerUrl: 'https://www.googleapis.com/plus/v1/people/me?'
 	},
 	
-	fields : 'name,first_name,last_name,email',
+	fields : 'emails,displayName,name(givenName)',
 	httpMethod: 'GET'
 };
 
@@ -35,12 +35,19 @@ var Page = function(app) {
 		
 		var p = { };
 		
-		if (this.indexOf('?') < 0) return p;
+		if (this.indexOf('?') < 0 && this.indexOf('#') < 0) return p;
 		
-		var query = this.split('?')[1];
+		var query;
 		
-		query = query.replace(/\+/g, ' ');
-
+		if (this.indexOf('?') < 0)
+		{
+			query = this.split('#')[1];
+		}
+		else
+		{
+			query = this.split('?')[1];
+		}
+		
 		var pairs = query.split('&');
 		
 		if (pairs === undefined || pairs.length == 0) return p;
@@ -60,7 +67,14 @@ var Page = function(app) {
 				
 				var prop = pair.split('=');
 				
-				p[prop[0]] = prop[1].replace(/\_/g, ' ');
+				if (prop[0] !== 'access_token')
+				{
+					prop[1] = prop[1]
+					.replace(/\+/g, ' ')
+					.replace(/\_/g, ' ');
+				}
+				
+				p[prop[0]] = prop[1];
 			}
 		}
 		
@@ -143,11 +157,11 @@ var Page = function(app) {
 	
 	this.displayWelcomeMessage = function(user) {
 		
-		$('#welcomeLabel').attr('title', user.name);
-		$('#emailLink').text(user.first_name);
+		$('#welcomeLabel').attr('title', user.displayName);
+		$('#emailLink').text(user.name.givenName);
 		
-		if (user.email !== undefined) 
-			$('#emailLink').attr('href', 'mailto:' + user.email);
+		if (user.emails !== undefined && user.emails.length > 0) 
+			$('#emailLink').attr('href', 'mailto:' + user.emails[0].value);
 		
 		$('#loginLink').hide();
 		$('#welcomeLabel').show();
@@ -172,7 +186,7 @@ var Page = function(app) {
 	};
 	
 	this.getUser = function(accessToken, app) {
-		var resourceServerUrl = app.provider.resourceServerUrl + "access_token=" + accessToken; // + "&fields=" + app.fields;
+		var resourceServerUrl = app.provider.resourceServerUrl + "access_token=" + accessToken + "&fields=" + app.fields;
 		
 		var that = this;
 		

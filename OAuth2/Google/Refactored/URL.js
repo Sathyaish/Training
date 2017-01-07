@@ -18,8 +18,6 @@ var URL = function(url) {
 			query = this.split('?')[1];
 		}
 		
-		query = query.replace(/\+/g, ' ');
-
 		var pairs = query.split('&');
 		
 		if (pairs === undefined || pairs.length == 0) return p;
@@ -39,7 +37,14 @@ var URL = function(url) {
 				
 				var prop = pair.split('=');
 				
-				p[prop[0]] = prop[1].replace(/\_/g, ' ');
+				if (prop[0] !== 'access_token')
+				{
+					prop[1] = prop[1]
+					.replace(/\+/g, ' ')
+					.replace(/\_/g, ' ');
+				}
+				
+				p[prop[0]] = prop[1];
 			}
 		}
 		

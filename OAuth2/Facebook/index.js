@@ -35,9 +35,18 @@ var Page = function(app) {
 		
 		var p = { };
 		
-		if (this.indexOf('?') < 0) return p;
+		if (this.indexOf('?') < 0 && this.indexOf('#') < 0) return p;
 		
-		var query = this.split('?')[1];
+		var query;
+		
+		if (this.indexOf('?') < 0)
+		{
+			query = this.split('#')[1];
+		}
+		else
+		{
+			query = this.split('?')[1];
+		}
 		
 		query = query.replace(/\+/g, ' ');
 
