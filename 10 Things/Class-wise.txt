@@ -36,6 +36,8 @@ C#'s similarity to Java. But C# is way more advanced than Java.
 
 Brace styles don't matter. Pick yours. Best go by whatever the majority in the language follow.
 
+.NET Framework versions. C# versions.
+
 Variables. Static and strong typing.
 
 Printing and reading from the console.
