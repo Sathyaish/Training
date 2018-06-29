@@ -28,6 +28,8 @@ Examples of editors: notepad, notepad++, sublime, atom.
 
 Same for C# -- location of C# compiler csc.exe, CLR (the Common Language Runtime) is a lot of libraries in the GAC
 
+Adding the C# compiler csc.exe to your PATH until we learn about IDE's.
+
 Why the name CLR. What was Microsoft's goal in creating CLR and C#?
 
 .NET Framework: compilers, CLR, libraries
