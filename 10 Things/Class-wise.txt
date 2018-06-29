@@ -30,6 +30,8 @@ Same for C# -- location of C# compiler csc.exe, CLR (the Common Language Runtime
 
 Why the name CLR. What was Microsoft's goal in creating CLR and C#?
 
+.NET Framework: compilers, CLR, libraries
+
 C#'s similarity to Java. But C# is way more advanced than Java.
 
 Brace styles don't matter. Pick yours. Best go by whatever the majority in the language follow.
@@ -52,3 +54,5 @@ Homework exercises
 ------------
 
 Data types
+
+IDE
