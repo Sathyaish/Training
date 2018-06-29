@@ -1,4 +1,4 @@
-CLASS 1
+### CLASS 1
 
 A program is a set of instructions given to a computer to make it do something.
 
@@ -14,6 +14,10 @@ RAM vs. hard disk
 function of the RAM - whatever happens, happens inside the RAM. When the program exits, the program goes away from the RAM.
 
 Functions of an OS -- when we launch a program, it begins executing it. It creates memory inside the RAM.
+
+_______________________
+
+### CLASS 2
 
 CUI vs. GUI OS, the shell -- explorer (GUI) vs. cmd or the command prompt (CUI). Teach a few cmd commands.
 
@@ -55,7 +59,9 @@ Classroom exercises
 
 Homework exercises
 
-------------
+___________________
+
+### CLASS 3
 
 Data types
 
