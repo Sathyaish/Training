@@ -47,17 +47,38 @@ Brace styles don't matter. Pick yours. Best go by whatever the majority in the l
 Variables. Static and strong typing.
 
 Basic data types without going into details about their sizes and ranges.
+String
+int
+double
+bool
+
+null
 
 Printing and reading from the console.
+Checking if a string is null or empty
 
-if construct
+Some functions to work with:
+1. Console.Write
+2. Console.WriteLine
+3. Console.ReadLine
+5. string.IsNullOrEmpty
+6. int.ParseInt
+
+Assignment operator
+Arithmetic operators (+, -, *, /, \\, % and their assignment operators like +=, etc.)
+Pre and post increment and decrement operators
+Comparison operators (>, <, >=, <=, ==, !=)
+Logical operators (AND, OR)
+
+if construct, else, elseif
 switch case
 while
 do while
 for loop
-foreach
 
-Classroom exercises:
+#### Classroom exercises:
+
+##### Printing on and reading from the screen, string.IsNullOrEmpty, int.ParseInt, if construct, for loop
 1. Ask a person their name and age and print it out on the screen.
 2. Ask a person their name and age. If the name they enter is blank, then tell them and exit the program. If they enter an age less than 10 or more than 120, display an error and exit. If they're older than 18, print they are of the age of majority, otherwise print they are a minor.
 3. Ask a person their name and age and keep asking them for their name until they print a non-blank value. Similarly, keep asking for an age until they print one between 10 and 120.
@@ -73,6 +94,15 @@ ___________________
 
 ### CLASS 3
 
-Data types
+Data types: a formal study with range and sizes
+
+trenary operator
 
 IDE
+
+Catching exceptions
+
+Arrays
+foreach
+
+Collections
