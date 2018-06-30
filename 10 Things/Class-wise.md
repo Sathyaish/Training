@@ -46,6 +46,8 @@ Brace styles don't matter. Pick yours. Best go by whatever the majority in the l
 
 Variables. Static and strong typing.
 
+Basic data types without going into details about their sizes and ranges.
+
 Printing and reading from the console.
 
 if construct
@@ -55,9 +57,17 @@ do while
 for loop
 foreach
 
-Classroom exercises
+Classroom exercises:
+1. Ask a person their name and age and print it out on the screen.
+2. Ask a person their name and age. If the name they enter is blank, then tell them and exit the program. If they enter an age less than 10 or more than 120, display an error and exit. If they're older than 18, print they are of the age of majority, otherwise print they are a minor.
+3. Ask a person their name and age and keep asking them for their name until they print a non-blank value. Similarly, keep asking for an age until they print one between 10 and 120.
+4. Print numbers from 1 to 25, one on each line.
+5. Print numbers from 1 to 25 with a comma in between each and a full-stop after the last one.
+6. Ask the user for his or her name and print, "Hello, <Name>!" where <Name> is the user's name.
+7. 
 
-Homework exercises
+Homework exercises:
+
 
 ___________________
 
