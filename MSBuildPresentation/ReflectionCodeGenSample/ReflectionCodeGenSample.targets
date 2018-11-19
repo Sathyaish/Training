@@ -1,0 +1,32 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="ReflectionParseTask" AssemblyFile="$(SolutionDir)\ReflectionParseTask\bin\$(Configuration)\ReflectParseTask.dll" />
+
+  <Target Name="GenReflectionFile" DependsOnTargets="SetReflectionParams">
+    <CallTarget Targets="ReflectFiles" />
+    <ItemGroup>
+      <ClCompile Include="$(ReflectionOutputFile)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ReflectFiles" Inputs="@(CLCompile)" Outputs="$(ReflectionIntermediateFolder)\%(CLCompile.Filename).reflect.obj">
+    <ReflectionParseTask Files="@(ClCompile)" ReflectionToken="$(Token)" ReflectionFileSchema="$(FileSchema)"
+                     ReflectionLineSchema="$(LineSchema)" FileToWrite="$(ReflectionOutputFile)" IntermediateFolder="$(ReflectionIntermediateFolder)" />
+  </Target>
+
+  <Target Name="SetReflectionParams">
+    <PropertyGroup>
+      <Token>Reflect</Token>
+      <FileSchema>
+#include "../Includes.h"
+void ReflectRegisteredFunctions()
+{{
+{0}
+}}
+      </FileSchema>
+      <LineSchema>        Reflection::Insert("{0}", {0});</LineSchema>
+      <ReflectionOutputFile>$(ProjectDir)\$(Configuration)\Reflection.cpp</ReflectionOutputFile>
+      <ReflectionIntermediateFolder>$(ProjectDir)\$(Configuration)\</ReflectionIntermediateFolder>
+    </PropertyGroup>
+  </Target>
+  
+</Project>

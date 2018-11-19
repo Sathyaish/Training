@@ -1,0 +1,18 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="InlineTask" AssemblyFile="$(SolutionDir)\CompiledTaskSample\bin\$(Configuration)\CompiledTaskSample.dll" />
+  
+  <Target Name="MyCustomStep">
+    <PropertyGroup>
+      <ParamValue>Passed Property</ParamValue>
+    </PropertyGroup>
+    <ItemGroup>
+      <TaskItem Include="$(DXSDK_DIR)\**\xnamathmisc.inl" />
+    </ItemGroup>
+    
+    <InlineTask Value="$(ParamValue)" Item="%(TaskItem.Identity)">
+      <Output TaskParameter="RetVal" PropertyName="ReturnedValue" />
+    </InlineTask>
+
+    <Message Text="Returned value: $(ReturnedValue)" />
+  </Target>
+</Project>

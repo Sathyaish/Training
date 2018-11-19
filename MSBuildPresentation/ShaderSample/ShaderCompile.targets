@@ -1,0 +1,35 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="CompileShader" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+    <ParameterGroup>
+      <OutputFolder ParameterType="System.String" Required="True" />
+      <CompilerLocation ParameterType="System.String" Required="True" />
+      <Shader ParameterType="Microsoft.Build.Framework.ITaskItem" Required="True" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Xml"/>
+      <Reference Include="System.Xml.Linq"/>
+      <Reference Include="$(MSBuildBinPath)\Microsoft.Build.Framework.dll"/>
+      <Reference Include="$(MSBuildBinPath)\Microsoft.Build.Utilities.v4.0.dll"/>
+      <Code Type="Class" Language="cs" Source="$(SolutionDir)\CompileShaderTask.cs">
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="CompileShaders" DependsOnTargets="GenShaderList">
+    <CallTarget Targets="IncrementalShaderCompile" />
+  </Target>
+
+  <Target Name="GenShaderList">
+    <PropertyGroup>
+      <ShaderOutputFolder>$(ProjectDir)\CompiledShaders\</ShaderOutputFolder>
+    </PropertyGroup>
+    <ItemGroup>
+      <ShadersToCompile Include="%(None.FullPath)" Condition="'%(Extension)' == '.fx'" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="IncrementalShaderCompile" Inputs="@(ShadersToCompile)" Outputs="$(ShaderOutputFolder)%(ShadersToCompile.Filename).o">
+    <CompileShader Shader="%(ShadersToCompile.FullPath)" OutputFolder="$(ShaderOutputFolder)" CompilerLocation="$(SolutionDir)" />
+  </Target>
+  
+</Project>

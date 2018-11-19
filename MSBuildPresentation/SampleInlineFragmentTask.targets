@@ -1,0 +1,40 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <UsingTask
+      TaskName="InlineTask"
+      TaskFactory="CodeTaskFactory"
+      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+      <ParameterGroup>
+        <Value ParameterType="System.String" Required="true" />
+        <Item ParameterType="Microsoft.Build.Framework.ITaskItem" Required="true" />
+        <RetVal ParameterType="System.String" Output="true"  />
+      </ParameterGroup>
+      <Task>
+        <Using Namespace="System"/>
+        <Using Namespace="System.IO"/>
+        <Using Namespace="Microsoft.Build.Framework"/>
+        <Code Type="Fragment" Language="cs">
+          <![CDATA[
+            // Display "Hello, world!"
+            Log.LogMessage(Value);
+            Log.LogMessage(Item.GetMetadata("FullPath"));
+            RetVal = Item.GetMetadata("FullPath");
+          ]]>
+        </Code>
+      </Task>
+    </UsingTask>
+  
+  <Target Name="MyCustomStep">
+    <PropertyGroup>
+      <ParamValue>Passed Property</ParamValue>
+    </PropertyGroup>
+    <ItemGroup>
+      <TaskItem Include="$(DXSDK_DIR)\**\xnamathmisc.inl" />
+    </ItemGroup>
+    
+    <InlineTask Value="$(ParamValue)" Item="%(TaskItem.Identity)">
+      <Output TaskParameter="RetVal" PropertyName="ReturnedValue" />
+    </InlineTask>
+
+    <Message Text="Returned value: $(ReturnedValue)" />
+  </Target>
+</Project>

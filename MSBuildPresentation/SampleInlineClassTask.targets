@@ -1,0 +1,56 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <UsingTask
+      TaskName="InlineTask"
+      TaskFactory="CodeTaskFactory"
+      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+      <ParameterGroup>
+        <Value ParameterType="System.String" Required="true" />
+        <Item ParameterType="Microsoft.Build.Framework.ITaskitem" Required="true" />
+        <RetVal ParameterType="System.String" Output="true" />
+      </ParameterGroup>
+      <Task>
+        <Reference Include="$(MSBuildBinPath)\Microsoft.Build.Framework.dll"/>
+        <Reference Include="$(MSBuildBinPath)\Microsoft.Build.Utilities.v4.0.dll"/>
+        <Code Type="Class" Language="cs">
+          <![CDATA[
+            using Microsoft.Build.Framework;
+            using Microsoft.Build.Utilities;
+            public class InlineTask : Microsoft.Build.Utilities.Task
+            {
+                [Required]
+                public string Value { get; set; }
+                
+                [Required]
+                public ITaskItem Item { get; set; }
+                
+                [Output]
+                public string RetVal { get; set; }
+                
+                public override bool Execute()
+                {
+                    Log.LogMessage(Value);
+                    Log.LogMessage(Item.GetMetadata("FullPath"));
+                    RetVal = Item.GetMetadata("FullPath");
+                    return true;
+                }
+            }
+          ]]>
+        </Code>
+      </Task>
+    </UsingTask>
+  
+  <Target Name="MyCustomStep">
+    <PropertyGroup>
+      <ParamValue>Passed Property</ParamValue>
+    </PropertyGroup>
+    <ItemGroup>
+      <TaskItem Include="$(DXSDK_DIR)\**\xnamathmisc.inl" />
+    </ItemGroup>
+    
+    <InlineTask Value="$(ParamValue)" Item="%(TaskItem.Identity)">
+      <Output TaskParameter="RetVal" PropertyName="ReturnedValue" />
+    </InlineTask>
+
+    <Message Text="Returned value: $(ReturnedValue)" />
+  </Target>
+</Project>
